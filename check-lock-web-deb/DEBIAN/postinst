@@ -1,0 +1,16 @@
+#!/bin/bash
+set -e
+
+APP_DIR="/opt/check-lock-web"
+USER=$(logname)
+
+if [ ! -d "$APP_DIR/venv" ]; then
+  echo "[*] Creating Python venv..."
+  python3 -m venv "$APP_DIR/venv"
+  "$APP_DIR/venv/bin/pip" install flask
+fi
+
+echo "[*] Enabling service..."
+systemctl daemon-reload
+systemctl enable "check-lock-web@${USER}.service"
+systemctl restart "check-lock-web@${USER}.service"

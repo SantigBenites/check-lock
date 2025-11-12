@@ -1,0 +1,13 @@
+[Unit]
+Description=Web service showing whether %i session is locked
+After=network.target
+
+[Service]
+User=%i
+WorkingDirectory=/opt/check-lock-web
+ExecStart=/opt/check-lock-web/venv/bin/python /opt/check-lock-web/app.py
+Environment="USER=%i"
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
