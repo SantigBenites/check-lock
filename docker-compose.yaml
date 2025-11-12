@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  lock-web:
+    build: .
+    container_name: lock-web
+    privileged: true
+    ports:
+      - "8080:8080"
+    environment:
+      - USER=${USER}
+    volumes:
+      - /run/systemd:/run/systemd:ro
+      - /run/dbus/system_bus_socket:/run/dbus/system_bus_socket:ro
+    restart: unless-stopped
